@@ -14,10 +14,10 @@ const getComputerChoice = () => {
     }
 }
 
-const choices = document.getElementById("choices");
+const buttons = document.getElementById("buttons");
 
-choices.addEventListener("click", event => {
-    if (event.target.tagName === "BUTTON") {
+buttons.addEventListener("click", event => {
+    if (event.target.id !== "buttons") {
         const computerChoice = getComputerChoice();
         const humanChoice = event.target.id;
         console.log(humanChoice + computerChoice);
@@ -25,9 +25,12 @@ choices.addEventListener("click", event => {
     }
 });
 
+const results = document.querySelector("#results p");
+const humanScoreDisplay = document.getElementById("human-score");
+const computerScoreDisplay = document.getElementById("computer-score");
+
 let humanScore = 0;
 let computerScore = 0;
-
 
 const playRound = (humanChoice, computerChoice) => {
     if (
@@ -35,12 +38,15 @@ const playRound = (humanChoice, computerChoice) => {
         (humanChoice === "scissors" && computerChoice === "paper") ||
         (humanChoice === "paper" && computerChoice === "rock")
     ) {
-        console.log("You win! " + toTitleCase(humanChoice) + " beats " + toTitleCase(computerChoice) + ".\n");
+        results.textContent = "You win! " + toTitleCase(humanChoice) + " beats " + toTitleCase(computerChoice) + ".\n";
         humanScore++;
+        humanScoreDisplay.textContent = humanScore;
     } else if (humanChoice === computerChoice) {
-        console.log("It's a tie!\n");
+        results.textContent = "It's a tie!\n";
     } else {
-        console.log("You lose! " + toTitleCase(computerChoice) + " beats " + toTitleCase(humanChoice) + ".\n");
+        results.textContent = "You lose! " + toTitleCase(computerChoice) + " beats " + toTitleCase(humanChoice) + ".\n";
+        computerScore++;
+        computerScoreDisplay.textContent = computerScore;
     }
 }
 
